@@ -27,6 +27,24 @@ const routes = [
     meta: { title: '发布乐器', requiresAuth: true }
   },
   {
+    path: '/publish/activity',
+    name: 'PublishActivity',
+    component: () => import('../views/PublishActivity.vue'),
+    meta: { title: '发起活动', requiresAuth: true }
+  },
+  {
+    path: '/activities',
+    name: 'Activities',
+    component: () => import('../views/Activities.vue'),
+    meta: { title: '音乐活动' }
+  },
+  {
+    path: '/activities/:id',
+    name: 'ActivityDetail',
+    component: () => import('../views/ActivityDetail.vue'),
+    meta: { title: '活动详情' }
+  },
+  {
     path: '/buddies',
     name: 'Buddies',
     component: () => import('../views/Buddies.vue'),

@@ -68,4 +68,14 @@ export const recommendApi = {
   pieces: (userId) => api.get(`/recommendations/pieces/${userId}`)
 }
 
+export const activityApi = {
+  list: (params) => api.get('/activities', { params }),
+  get: (id, params) => api.get(`/activities/${id}`, { params }),
+  create: (data) => api.post('/activities', data),
+  update: (id, data) => api.put(`/activities/${id}`, data),
+  remove: (id) => api.delete(`/activities/${id}`),
+  join: (id, data) => api.post(`/activities/${id}/join`, data),
+  leave: (id) => api.post(`/activities/${id}/leave`)
+}
+
 export default api

@@ -1,0 +1,190 @@
+[
+  {
+    "id": "act001",
+    "type": "ensemble",
+    "typeName": "合奏排练",
+    "title": "周末古典吉他合奏排练",
+    "description": "周末一起排练几首经典的古典吉他合奏曲目，水平不限，重在参与和交流。我们会准备乐谱，欢迎吉他爱好者加入！",
+    "organizerId": "u001",
+    "pieces": [
+      "卡农",
+      "爱的罗曼史二重奏",
+      "D大调卡农"
+    ],
+    "meetTime": "2026-06-20 14:00",
+    "endTime": "2026-06-20 17:00",
+    "location": "北京市朝阳区音乐空间排练室",
+    "latitude": 39.92,
+    "longitude": 116.46,
+    "neededInstruments": [
+      {
+        "instrument": "古典吉他",
+        "count": 3,
+        "signedUp": 2
+      },
+      {
+        "instrument": "小提琴",
+        "count": 1,
+        "signedUp": 0
+      },
+      {
+        "instrument": "大提琴",
+        "count": 1,
+        "signedUp": 1
+      }
+    ],
+    "maxParticipants": 8,
+    "participants": [
+      {
+        "userId": "u001",
+        "instrument": "古典吉他",
+        "joinedAt": "2026-06-10T10:00:00.000Z",
+        "status": "confirmed"
+      },
+      {
+        "userId": "u003",
+        "instrument": "大提琴",
+        "joinedAt": "2026-06-11T14:30:00.000Z",
+        "status": "confirmed"
+      },
+      {
+        "userId": "u005",
+        "instrument": "古典吉他",
+        "joinedAt": "2026-06-12T09:15:00.000Z",
+        "status": "confirmed"
+      }
+    ],
+    "status": "recruiting",
+    "notes": "请自带乐器，如需借用请提前联系",
+    "createdAt": "2026-06-08T16:00:00.000Z"
+  },
+  {
+    "id": "act002",
+    "type": "duet",
+    "typeName": "二重奏",
+    "title": "钢琴小提琴二重奏练习",
+    "description": "寻找一位小提琴手一起练习贝多芬的小提琴奏鸣曲，我弹钢琴，水平中级以上。每周六下午固定时间练习。",
+    "organizerId": "u002",
+    "pieces": [
+      "贝多芬小提琴奏鸣曲No.5 春天",
+      "巴赫双小提琴协奏曲"
+    ],
+    "meetTime": "2026-06-18 15:00",
+    "endTime": "2026-06-18 18:00",
+    "location": "北京市海淀区某音乐教室",
+    "latitude": 39.95,
+    "longitude": 116.31,
+    "neededInstruments": [
+      {
+        "instrument": "钢琴",
+        "count": 1,
+        "signedUp": 1
+      },
+      {
+        "instrument": "小提琴",
+        "count": 1,
+        "signedUp": 0
+      }
+    ],
+    "maxParticipants": 2,
+    "participants": [
+      {
+        "userId": "u002",
+        "instrument": "钢琴",
+        "joinedAt": "2026-06-09T11:00:00.000Z",
+        "status": "confirmed"
+      }
+    ],
+    "status": "recruiting",
+    "notes": "钢琴教室有琴，小提琴需自带",
+    "createdAt": "2026-06-09T11:00:00.000Z"
+  },
+  {
+    "id": "act003",
+    "type": "practice",
+    "typeName": "小型练习会",
+    "title": "周日下午尤克里里弹唱练习会",
+    "description": "尤克里里爱好者的小型聚会，一起弹唱流行歌曲，互相学习交流。初学者也欢迎，我们会有简单的教学环节。",
+    "organizerId": "u004",
+    "pieces": [
+      "稻香",
+      "小手拉大手",
+      "情非得已"
+    ],
+    "meetTime": "2026-06-22 14:30",
+    "endTime": "2026-06-22 17:30",
+    "location": "北京市西城区咖啡馆",
+    "latitude": 39.91,
+    "longitude": 116.36,
+    "neededInstruments": [
+      {
+        "instrument": "尤克里里",
+        "count": 6,
+        "signedUp": 4
+      }
+    ],
+    "maxParticipants": 8,
+    "participants": [
+      {
+        "userId": "u004",
+        "instrument": "尤克里里",
+        "joinedAt": "2026-06-11T08:00:00.000Z",
+        "status": "confirmed"
+      },
+      {
+        "userId": "u005",
+        "instrument": "尤克里里",
+        "joinedAt": "2026-06-12T16:00:00.000Z",
+        "status": "pending"
+      },
+      {
+        "userId": "u006",
+        "instrument": "尤克里里",
+        "joinedAt": "2026-06-13T10:20:00.000Z",
+        "status": "confirmed"
+      },
+      {
+        "userId": "u001",
+        "instrument": "尤克里里",
+        "joinedAt": "2026-06-12T20:53:06.219Z",
+        "status": "confirmed"
+      }
+    ],
+    "status": "recruiting",
+    "notes": "场地低消约30元，店内提供饮品",
+    "createdAt": "2026-06-11T08:00:00.000Z"
+  },
+  {
+    "id": "act004",
+    "type": "offline",
+    "typeName": "线下交流",
+    "title": "古典音乐爱好者交流会",
+    "description": "古典音乐爱好者的线下聚会，聊聊喜欢的作曲家，分享练琴心得，可以现场即兴演奏。欢迎所有喜欢古典音乐的朋友！",
+    "organizerId": "u003",
+    "pieces": [],
+    "meetTime": "2026-06-25 19:00",
+    "endTime": "2026-06-25 21:30",
+    "location": "北京市东城区书店咖啡区",
+    "latitude": 39.93,
+    "longitude": 116.41,
+    "neededInstruments": [],
+    "maxParticipants": 15,
+    "participants": [
+      {
+        "userId": "u003",
+        "instrument": "",
+        "joinedAt": "2026-06-12T14:00:00.000Z",
+        "status": "confirmed"
+      },
+      {
+        "userId": "u001",
+        "instrument": "",
+        "joinedAt": "2026-06-13T09:30:00.000Z",
+        "status": "confirmed"
+      }
+    ],
+    "status": "recruiting",
+    "notes": "可以带上自己喜欢的乐谱或CD分享",
+    "createdAt": "2026-06-12T14:00:00.000Z"
+  }
+]

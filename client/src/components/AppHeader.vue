@@ -23,14 +23,31 @@
           <el-icon><Calendar /></el-icon>
           <span>练琴打卡</span>
         </router-link>
+        <router-link to="/activities" class="nav-item" :class="{ active: $route.name === 'Activities' || $route.name === 'ActivityDetail' }">
+          <el-icon><Flag /></el-icon>
+          <span>音乐活动</span>
+        </router-link>
       </nav>
       
       <div class="header-right">
         <template v-if="userStore.isLoggedIn">
-          <router-link to="/publish" class="publish-btn">
-            <el-icon><Plus /></el-icon>
-            发布闲置
-          </router-link>
+          <el-dropdown @command="handlePublish">
+            <button class="publish-btn">
+              <el-icon><Plus /></el-icon>
+              发布
+              <el-icon><ArrowDown /></el-icon>
+            </button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="instrument">
+                  <el-icon><Goods /></el-icon>发布闲置乐器
+                </el-dropdown-item>
+                <el-dropdown-item command="activity">
+                  <el-icon><Flag /></el-icon>发起音乐活动
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
           <router-link to="/messages" class="icon-btn" title="消息">
             <el-badge :value="unreadCount" :hidden="unreadCount === 0">
               <el-icon size="20"><Bell /></el-icon>
@@ -49,6 +66,9 @@
                 </el-dropdown-item>
                 <el-dropdown-item command="my-publish">
                   <el-icon><Goods /></el-icon>我的发布
+                </el-dropdown-item>
+                <el-dropdown-item command="my-activities">
+                  <el-icon><Flag /></el-icon>我的活动
                 </el-dropdown-item>
                 <el-dropdown-item command="messages">
                   <el-icon><Message /></el-icon>消息中心
@@ -88,6 +108,17 @@ const goLogin = () => {
   router.push('/login')
 }
 
+const handlePublish = (cmd) => {
+  switch (cmd) {
+    case 'instrument':
+      router.push('/publish')
+      break
+    case 'activity':
+      router.push('/publish/activity')
+      break
+  }
+}
+
 const handleCommand = (cmd) => {
   switch (cmd) {
     case 'profile':
@@ -95,6 +126,9 @@ const handleCommand = (cmd) => {
       break
     case 'my-publish':
       router.push({ name: 'Instruments', query: { owner: userStore.userId } })
+      break
+    case 'my-activities':
+      router.push({ name: 'Activities', query: { organizer: userStore.userId } })
       break
     case 'messages':
       router.push('/messages')
