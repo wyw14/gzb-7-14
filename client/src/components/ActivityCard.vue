@@ -80,11 +80,11 @@
         <el-button 
           type="primary" 
           size="small" 
-          :disabled="activity.status !== 'recruiting' || (activity.signedUpCount || 0) >= activity.maxParticipants"
+          :disabled="activity.status !== 'recruiting' || (activity.signedUpCount || 0) >= activity.maxParticipants || instrumentsAllFull"
           @click.stop="$emit('join', activity)"
         >
           <el-icon><Plus /></el-icon>
-          立即报名
+          {{ instrumentsAllFull ? '乐器已满' : '立即报名' }}
         </el-button>
       </template>
     </div>
@@ -101,6 +101,12 @@ const props = defineProps({
 })
 
 defineEmits(['join', 'leave', 'edit', 'delete'])
+
+const instrumentsAllFull = computed(() => {
+  const needed = props.activity.neededInstruments
+  if (!needed || needed.length === 0) return false
+  return needed.every(i => (i.signedUp || 0) >= i.count)
+})
 
 const statusText = computed(() => {
   const map = {

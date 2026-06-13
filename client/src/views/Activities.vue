@@ -176,6 +176,12 @@ const availableInstruments = computed(() => {
   return currentActivity.value.neededInstruments
 })
 
+const firstAvailableInstrument = computed(() => {
+  if (!currentActivity.value?.neededInstruments) return ''
+  const available = currentActivity.value.neededInstruments.find(i => (i.signedUp || 0) < i.count)
+  return available ? available.instrument : ''
+})
+
 const loadActivities = async () => {
   if (!userStore.isLoggedIn) return
   
@@ -209,14 +215,35 @@ const handleJoin = (activity) => {
     return
   }
   currentActivity.value = activity
-  joinForm.instrument = activity.neededInstruments?.[0]?.instrument || ''
+  if (activity.neededInstruments && activity.neededInstruments.length > 0) {
+    const firstAvailable = activity.neededInstruments.find(i => (i.signedUp || 0) < i.count)
+    joinForm.instrument = firstAvailable ? firstAvailable.instrument : ''
+    if (!firstAvailable) {
+      ElMessage.warning('所有乐器名额已满，无法报名')
+      return
+    }
+  } else {
+    joinForm.instrument = ''
+  }
   joinForm.message = ''
   showJoinDialog.value = true
 }
 
 const confirmJoin = async () => {
   if (!currentActivity.value) return
-  
+
+  if (currentActivity.value.neededInstruments && currentActivity.value.neededInstruments.length > 0) {
+    if (!joinForm.instrument) {
+      ElMessage.warning('请选择使用的乐器')
+      return
+    }
+    const selected = currentActivity.value.neededInstruments.find(i => i.instrument === joinForm.instrument)
+    if (selected && (selected.signedUp || 0) >= selected.count) {
+      ElMessage.error(`「${joinForm.instrument}」名额已满，请选择其他乐器`)
+      return
+    }
+  }
+
   joining.value = true
   try {
     await activityApi.join(currentActivity.value.id, {

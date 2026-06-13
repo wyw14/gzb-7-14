@@ -200,6 +200,16 @@ router.post('/:id/join', (req, res) => {
     existing.status = 'confirmed';
   } else {
     const { instrument } = req.body;
+
+    if (instrument && activity.neededInstruments && activity.neededInstruments.length > 0) {
+      const needed = activity.neededInstruments.find(n => n.instrument === instrument);
+      if (needed) {
+        if ((needed.signedUp || 0) >= needed.count) {
+          return res.status(400).json({ error: `「${instrument}」名额已满，请选择其他乐器` });
+        }
+      }
+    }
+
     activity.participants.push({
       userId,
       instrument: instrument || '',

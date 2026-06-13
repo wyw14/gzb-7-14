@@ -143,11 +143,15 @@
                 <el-button
                   type="primary"
                   size="large"
-                  :disabled="activity.status !== 'recruiting' || (activity.signedUpCount || 0) >= activity.maxParticipants"
+                  :disabled="activity.status !== 'recruiting' || (activity.signedUpCount || 0) >= activity.maxParticipants || instrumentsAllFull"
                   @click="showJoinDialog = true"
                 >
                   <el-icon><Plus /></el-icon>
-                  {{ activity.status !== 'recruiting' ? '已停止招募' : (activity.signedUpCount || 0) >= activity.maxParticipants ? '已满员' : '立即报名' }}
+                  {{ 
+                    activity.status !== 'recruiting' ? '已停止招募' : 
+                    (activity.signedUpCount || 0) >= activity.maxParticipants ? '已满员' : 
+                    instrumentsAllFull ? '乐器已满' : '立即报名' 
+                  }}
                 </el-button>
               </template>
             </div>
@@ -257,6 +261,12 @@ const confirmedCount = computed(() => {
   return activity.value.participants.filter(p => p.status === 'confirmed').length
 })
 
+const instrumentsAllFull = computed(() => {
+  const needed = activity.value?.neededInstruments
+  if (!needed || needed.length === 0) return false
+  return needed.every(i => (i.signedUp || 0) >= i.count)
+})
+
 const formatDate = (dateStr) => {
   if (!dateStr) return ''
   return new Date(dateStr).toLocaleDateString('zh-CN')
@@ -267,8 +277,11 @@ const loadActivity = async () => {
   try {
     const params = userStore.isLoggedIn ? { currentUserId: userStore.userId } : {}
     activity.value = await activityApi.get(activityId, params)
-    if (activity.value.neededInstruments?.[0]) {
-      joinForm.instrument = activity.value.neededInstruments[0].instrument
+    if (activity.value.neededInstruments && activity.value.neededInstruments.length > 0) {
+      const firstAvailable = activity.value.neededInstruments.find(i => (i.signedUp || 0) < i.count)
+      joinForm.instrument = firstAvailable ? firstAvailable.instrument : ''
+    } else {
+      joinForm.instrument = ''
     }
   } catch (e) {
     ElMessage.error('加载活动详情失败')
@@ -282,6 +295,18 @@ const confirmJoin = async () => {
   if (!userStore.isLoggedIn) {
     requireLogin()
     return
+  }
+
+  if (activity.value.neededInstruments && activity.value.neededInstruments.length > 0) {
+    if (!joinForm.instrument) {
+      ElMessage.warning('请选择使用的乐器')
+      return
+    }
+    const selected = activity.value.neededInstruments.find(i => i.instrument === joinForm.instrument)
+    if (selected && (selected.signedUp || 0) >= selected.count) {
+      ElMessage.error(`「${joinForm.instrument}」名额已满，请选择其他乐器`)
+      return
+    }
   }
   
   joining.value = true
